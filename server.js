@@ -5,7 +5,7 @@ const app = express();
 const cors = require("cors");
 app.use(cors());
 
-const connectDB = require("./db/Connect");
+const connectDB = require("./db/connect");
 const routes = require("./Routes/index");
 
 app.use(express.json());
