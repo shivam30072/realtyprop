@@ -9,8 +9,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // Use `true` for port 465, `false` for all other ports
   auth: {
-    user: process.env.USER,
-    pass: process.env.APP_PASSWORD,
+    user: process.env.USER || "Realityunit81@gmail.com",
+    pass: process.env.APP_PASSWORD || "grosmrtpvgfudhws",
   },
   tls: {
     rejectUnauthorized: false, // This will ignore the self-signed certificate error
@@ -44,9 +44,9 @@ const sendMail = async (userData) => {
   const mailOptionsToManager = {
     from: {
       name: "Realty Unit",
-      address: process.env.USER,
+      address: process.env.USER || "Realityunit81@gmail.com",
     },
-    to: ["shivam30072@gmail.com"],
+    to: ["Vipul.13khandelwal@gmail.com"],
     subject: "New User Registration",
     html: templateForManager,
   };
@@ -54,7 +54,7 @@ const sendMail = async (userData) => {
   const mailOptionsToUser = {
     from: {
       name: "Realty Unit",
-      address: process.env.USER,
+      address: process.env.USER || "Realityunit81@gmail.com",
     },
     to: [email],
     subject: "Thank you ❤️ for Contacting Realty Unit",
