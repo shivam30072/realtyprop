@@ -46,7 +46,7 @@ const sendMail = async (userData) => {
       name: "Realty Unit",
       address: process.env.USER || "Realityunit81@gmail.com",
     },
-    to: ["Vipul.13khandelwal@gmail.com"],
+    to: ["Info@realtyunit.in"],
     subject: "New User Registration",
     html: templateForManager,
   };
@@ -57,7 +57,7 @@ const sendMail = async (userData) => {
       address: process.env.USER || "Realityunit81@gmail.com",
     },
     to: [email],
-    subject: "Thank you ❤️ for Contacting Realty Unit",
+    subject: "Thank You for Your Inquiry",
     html: templateForUser,
   };
   try {
