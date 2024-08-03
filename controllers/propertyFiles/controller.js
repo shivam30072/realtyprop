@@ -16,6 +16,17 @@ const storeFiles = async (req, res) => {
   }
 };
 
+const getFiles = async (req, res) => {
+  try {
+    const response = await PropertyFiles.find({});
+    return res.status(200).json({ success: true, data: response });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 module.exports = {
   storeFiles,
+  getFiles,
 };

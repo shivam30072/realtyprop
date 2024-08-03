@@ -6,7 +6,7 @@ const {
 } = require("../../../controllers/user/controller");
 // const authMiddleware = require("../../../Middleware/authMiddleware");
 
-// url here is `/api/v1/user`
+// baseUrl here is `/api/v1/user`
 const router = require("express").Router();
 
 router.post("/contact-form", contactForm);
