@@ -26,6 +26,9 @@ const porpertySchema = mongoose.Schema(
     feature: {
       type: String,
     },
+    imgs: {
+      type: [String],
+    },
   },
   { timestamps: true }
 );

@@ -25,7 +25,7 @@ const bulkUploadProperties = async () => {
 
     if (pendingFiles) {
       console.log("BUP - FileURL= ", pendingFiles.fileURL);
-      if (bulkUpload(pendingFiles.fileURL)) {
+      if (await bulkUpload(pendingFiles.fileURL)) {
         doneUploadingFile = true;
       } else {
         console.log("BUP - Error while uploading file");
@@ -52,7 +52,7 @@ const bulkUpload = async (fileURL) => {
       Key: s3FileKey,
     };
     const data = await s3.getObject(params).promise();
-    const doneUploding = processData(data.Body);
+    const doneUploding = await processData(data.Body);
     return doneUploding;
   } catch (error) {
     console.log(error);

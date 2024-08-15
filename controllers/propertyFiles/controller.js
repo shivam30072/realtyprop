@@ -12,7 +12,7 @@ const storeFiles = async (req, res) => {
     return res.status(200).json({ success: true, data: response });
   } catch (error) {
     console.log(error);
-    throw error;
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -22,7 +22,7 @@ const getFiles = async (req, res) => {
     return res.status(200).json({ success: true, data: response });
   } catch (error) {
     console.log(error);
-    throw error;
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 

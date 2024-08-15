@@ -25,30 +25,37 @@ app.use(routes);
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-app.post("/upload", upload.single("file"), async (req, res) => {
-  const file = req.file;
+app.post("/upload", upload.array("files", 10), async (req, res) => {
+  const files = req.files;
 
-  if (!file) {
-    return res.status(400).send("No file uploaded.");
+  if (!files || files.length === 0) {
+    return res.status(400).send("No files uploaded.");
   }
 
-  const params = {
-    Bucket: process.env.BUCKET_NAME,
-    Key: `${Date.now()}_${file.originalname}`,
-    Body: file.buffer,
-    ContentType: file.mimetype,
-  };
-
   try {
-    // Upload file to S3
-    const data = await s3.upload(params).promise();
+    const uploadPromises = files.map((file) => {
+      const params = {
+        Bucket: process.env.BUCKET_NAME,
+        Key: `${Date.now()}_${file.originalname}`,
+        Body: file.buffer,
+        ContentType: file.mimetype,
+      };
 
-    // Return the file URL
-    console.log("s3 url -", data.Location);
-    res.status(200).json({ url: data.Location });
+      // Upload each file to S3
+      return s3.upload(params).promise();
+    });
+
+    // Wait for all uploads to complete
+    const results = await Promise.all(uploadPromises);
+
+    // Get the URLs of all uploaded files
+    const urls = results.map((result) => result.Location);
+
+    console.log("s3 urls -", urls);
+    res.status(200).json({ urls });
   } catch (err) {
-    console.error("Error uploading file:", err);
-    res.status(500).send("Error uploading file");
+    console.error("Error uploading files:", err);
+    res.status(500).send("Error uploading files");
   }
 });
 
