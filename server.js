@@ -5,7 +5,17 @@ const AWS = require("aws-sdk");
 const multer = require("multer");
 
 const cors = require("cors");
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://realtyadmin.vercel.app", // Allow all origins, or specify your frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Authorization"],
+  })
+);
+
+// Optionally handle preflight requests
+app.options("*", cors());
 
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY,
