@@ -26,8 +26,23 @@ const porpertySchema = mongoose.Schema(
     feature: {
       type: String,
     },
-    imgs: {
-      type: [String],
+    interior: {
+      type: String,
+    },
+    exterior: {
+      type: String,
+    },
+    bathroom: {
+      type: String,
+    },
+    balcony: {
+      type: String,
+    },
+    gym: {
+      type: String,
+    },
+    pool: {
+      type: String,
     },
   },
   { timestamps: true }

@@ -1,14 +1,18 @@
+const { bulkUploadProperties } = require("../../jobs");
 const PropertyFiles = require("../../models/propertyFiles");
 
 const storeFiles = async (req, res) => {
   try {
-    const { fileName, fileURL } = req.body;
+    let { fileName, fileURL } = req.body;
 
-    if (!fileName || !fileURL) {
+    if (!fileName.length || !fileURL.length) {
       throw "filename and fileURL both are required fields";
     }
-    const data = { ...req.body, status: "pending" };
+    fileName = fileName[0];
+    fileURL = fileURL[0];
+    const data = { fileName, fileURL, status: "pending" };
     const response = await PropertyFiles.create(data);
+    // await bulkUploadProperties();
     return res.status(200).json({ success: true, data: response });
   } catch (error) {
     console.log(error);

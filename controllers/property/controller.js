@@ -3,8 +3,8 @@ const Property = require("../../models/property");
 
 const getProperties = async (req, res) => {
   try {
-    const pageNumber = parseInt(req.body.pageNumber) || 1;
-    const pageSize = parseInt(req.body.pageSize) || 5;
+    const pageNumber = parseInt(req.params.pageNumber) || 1;
+    const pageSize = 5;
 
     const skip = (pageNumber - 1) * pageSize;
 
@@ -40,7 +40,13 @@ const addImagesForProperty = async (req, res) => {
     const { id, imgs } = req.body;
     const property = await Property.findOne({ _id: id });
     if (property) {
-      property.imgs = imgs;
+      property.interior = imgs.interior;
+      property.exterior = imgs.exterior;
+      property.balcony = imgs.balcony;
+      property.bathroom = imgs.bathroom;
+      property.pool = imgs.pool;
+      property.gym = imgs.gym;
+
       await property.save();
       return res
         .status(200)
